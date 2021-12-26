@@ -1,20 +1,22 @@
 <template>
   <Page>
-    <ActionBar title="toto"/>
+    <ActionBar title="Forza Setup by RyuJin"/>
     <StackLayout>
       <TextField ref="maxField" hint="MAX" width="90%" height="10%" keyboardType="number" />
       <TextField ref="minField" hint="MIN" width="90%" height="10%" keyboardType="number" />
       <TextField ref="percentField" hint="%" width="90%" height="10%" keyboardType="number" />
       <button text="Calculate" @tap="calculate" />
 
-      <Label text="front" textWrap="true" />
-      <Label :text="result.front" textWrap="true" />
-      <Label text="rear" textWrap="true" />
-      <Label :text="result.rear" textWrap="true" />
-      <Label text="front 60%" textWrap="true" />
-      <Label :text="resultSixteen.front" textWrap="true" />
-      <Label text="rear 60%" textWrap="true" />
-      <Label :text="resultSixteen.rear" textWrap="true" />
+      <GridLayout rows="50, 50, 50, 50" columns="115, 115, 115, 115" width="80%">
+        <Label text="Front" textWrap="true" row="0" col="0" marginTop="10" />
+        <Label :text="result.front" textWrap="true" row="1" col="0" />
+        <Label text="Front 60%" textWrap="true" row="2" col="0" marginTop="10"/>
+        <Label :text="resultSixteen.front" textWrap="true" row="3" col="0"/>
+        <Label text="Rear" textWrap="true" row="0" col="1" marginTop="10"/>
+        <Label :text="result.rear" textWrap="true" row="1" col="1"/>
+        <Label text="Rear 60%" textWrap="true" row="2" col="1" marginTop="10"/>
+        <Label :text="resultSixteen.rear" textWrap="true" row="3" col="1"/>
+      </GridLayout>
     </StackLayout>
   </Page>
 </template>
@@ -25,7 +27,7 @@
   import { SetupValues } from "../models/SetupValues";
   import Calculator from "../tools/Calculator";
 
-  const calc = new Calculator();
+  const calc: Calculator = new Calculator();
 
   export default Vue.extend({
     data() {
@@ -58,8 +60,8 @@
       },
       calculateSixteen(calcResult: SetupValues) {
         this.resultSixteen = {
-          front : calcResult.front * 0.60,
-          rear : calcResult.rear
+          front : Math.round((calcResult.front * 0.60) * 100 / 100),
+          rear : Math.round((calcResult.rear * 0.60) * 100) / 100
         }
       }
     }
